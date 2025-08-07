@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Submitted Successfully</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .success-container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+        }
+        
+        .success-icon {
+            font-size: 64px;
+            color: #28a745;
+            margin-bottom: 20px;
+        }
+        
+        .success-title {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 28px;
+            font-weight: 600;
+        }
+        
+        .success-message {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        
+        .submitted-data {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+        
+        .data-title {
+            color: #333;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .data-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .data-item:last-child {
+            border-bottom: none;
+        }
+        
+        .data-label {
+            font-weight: 600;
+            color: #495057;
+        }
+        
+        .data-value {
+            color: #6c757d;
+            word-break: break-all;
+        }
+        
+        .back-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+            text-decoration: none;
+            color: white;
+        }
+        
+        .back-btn:active {
+            transform: translateY(0);
+        }
+        
+        .flash-messages {
+            margin-bottom: 20px;
+        }
+        
+        .flash-message {
+            padding: 12px 16px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+        
+        .flash-message.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        @media (max-width: 480px) {
+            .success-container {
+                padding: 25px;
+                margin: 10px;
+            }
+            
+            .success-title {
+                font-size: 24px;
+            }
+            
+            .success-icon {
+                font-size: 48px;
+            }
+            
+            .data-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="success-container">
+        <div class="success-icon">✅</div>
+        <h1 class="success-title">Success!</h1>
+        
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="flash-message {{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        
+        <p class="success-message">
+            Your form has been submitted successfully! Here's a summary of the information you provided:
+        </p>
+        
+        <div class="submitted-data">
+            <h3 class="data-title">Submitted Information</h3>
+            <div class="data-item">
+                <span class="data-label">Username:</span>
+                <span class="data-value">{{ username }}</span>
+            </div>
+            <div class="data-item">
+                <span class="data-label">Email:</span>
+                <span class="data-value">{{ email }}</span>
+            </div>
+            <div class="data-item">
+                <span class="data-label">Phone:</span>
+                <span class="data-value">{{ phone }}</span>
+            </div>
+        </div>
+        
+        <a href="/" class="back-btn">Submit Another Form</a>
+    </div>
+</body>
+</html>
